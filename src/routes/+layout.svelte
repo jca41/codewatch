@@ -3,13 +3,18 @@
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
+
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
+	import Navigation from '$lib/components/navigation.svelte';
+
+	const queryClient = new QueryClient();
 </script>
 
-<AppShell regionPage="py-14 px-8">
-	<svelte:fragment slot="header">
-		<AppBar>
-			<span class="text-3xl font-bold">CodeWatch</span>
-		</AppBar>
-	</svelte:fragment>
-	<slot />
-</AppShell>
+<QueryClientProvider client={queryClient}>
+	<AppShell regionPage="py-14 px-8">
+		<svelte:fragment slot="header">
+			<Navigation />
+		</svelte:fragment>
+		<slot />
+	</AppShell>
+</QueryClientProvider>

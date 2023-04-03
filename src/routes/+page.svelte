@@ -2,8 +2,4 @@
 	export let data;
 </script>
 
-{#await data.promises.a}
-	Loading
-{:then message}
-	<div>{message}</div>
-{/await}
+<h1>Coding</h1>
