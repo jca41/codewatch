@@ -2,7 +2,7 @@
 	import '@skeletonlabs/skeleton/themes/theme-gold-nouveau.css';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { AppBar, AppShell } from '@skeletonlabs/skeleton';
+	import { AppShell } from '@skeletonlabs/skeleton';
 
 	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
 	import Navigation from '$lib/components/navigation.svelte';

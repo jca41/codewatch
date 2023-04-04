@@ -3,9 +3,12 @@
 :root {
     --theme-font-family-base: 'Quicksand', sans-serif;
     --theme-font-family-heading: 'Quicksand', sans-serif;
-    /* ... */
 }
 
 body { @apply bg-surface-50-900-token; }
 html, body { @apply h-full overflow-hidden; }
 
+
+input::-webkit-calendar-picker-indicator {
+    @apply dark:invert;
+}

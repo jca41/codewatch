@@ -1,4 +1,4 @@
-import { awClient } from '$lib/aw-client';
+import { awClient } from '$lib/aw/client';
 import { bucketsStore } from '$lib/stores';
 
 export const prerender = true;
