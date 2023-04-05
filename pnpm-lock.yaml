@@ -14,6 +14,7 @@ specifiers:
   apexcharts: ^3.37.3
   autoprefixer: ^10.4.14
   aw-client: ^0.3.3
+  date-fns: ^2.29.3
   eslint: ^8.37.0
   eslint-config-prettier: ^8.8.0
   eslint-plugin-svelte3: ^4.0.0
@@ -34,6 +35,7 @@ dependencies:
   '@tanstack/svelte-query': 4.27.0_svelte@3.58.0
   apexcharts: 3.37.3
   aw-client: 0.3.3
+  date-fns: 2.29.3
 
 devDependencies:
   '@skeletonlabs/skeleton': 1.1.0
@@ -991,6 +993,11 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
     dev: true
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

@@ -44,6 +44,7 @@
 	"dependencies": {
 		"@tanstack/svelte-query": "^4.27.0",
 		"apexcharts": "^3.37.3",
-		"aw-client": "^0.3.3"
+		"aw-client": "^0.3.3",
+		"date-fns": "^2.29.3"
 	}
 }

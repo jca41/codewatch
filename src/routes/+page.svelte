@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { chart } from '$lib/actions/use-chart';
-	import { awClient } from '$lib/aw/client';
 	import { Query } from '$lib/aw/query';
 	import { bucketsStore } from '$lib/stores';
 	import { createBarSeries, formatDuration } from '$lib/utils/chart-data';
@@ -13,10 +12,12 @@
 		enabled: Boolean(startDate),
 		queryKey: ['my-query'],
 		queryFn: () =>
-			awClient.query(
-				[{ start: new Date(startDate), end: endDate ? new Date(endDate) : new Date() }],
-				[new Query().bucket(buckets[0]?.id).mergeEventsByKeys(['app']).sortBy('duration').return()]
-			)
+			new Query()
+				.bucket(buckets[0]?.id)
+				.noAFK()
+				.mergeEventsByKeys(['app'])
+				.sortBy('duration')
+				.execute(startDate, endDate)
 	});
 </script>
 
@@ -49,7 +50,17 @@
 		},
 		chart: {
 			type: 'bar',
-			background: 'transparent'
+			background: 'transparent',
+			toolbar: {
+				tools: {
+					download: false,
+					selection: false,
+					zoom: true,
+					zoomin: true,
+					zoomout: true,
+					pan: true
+				}
+			}
 		},
 		// fill: {
 		// 	type: 'gradient'
@@ -77,7 +88,7 @@
 		series: [
 			{
 				name: 'App usage',
-				data: createBarSeries($query.data?.[0] ?? [])
+				data: createBarSeries($query.data ?? [])
 			}
 		],
 		xaxis: {

@@ -1,12 +1,40 @@
+import type { AWClient } from 'aw-client';
+import { awClient } from './client';
+
 export class Query {
 	#query = '';
+	#tempVariables: string[] = [];
 
-	#variable(name: string, expression: string) {
-		return `${name}=${expression};`;
+	client: AWClient;
+
+	static BUCKETS = { afk: 'aw-watcher-afk_' } as const;
+
+	constructor(client: AWClient = awClient) {
+		this.client = client;
+	}
+
+	#variable(statement: string) {
+		const varName = `temp${(Math.random() * 1000).toFixed()}`;
+		const constructed = `${varName}=${statement};`;
+		this.#tempVariables.push(constructed);
+
+		return varName;
+	}
+
+	#return() {
+		return `RETURN=${this.#query};`;
+	}
+
+	#flood(events: string) {
+		return `flood(${events})`;
+	}
+
+	#findBucket(bucket: string) {
+		return this.#flood(`query_bucket(find_bucket("${bucket}"))`);
 	}
 
 	#bucket(bucket: string) {
-		return `flood(query_bucket("${bucket}"))`;
+		return this.#flood(`query_bucket("${bucket}")`);
 	}
 
 	#joinBucketsRecursive(buckets: string[]): string {
@@ -24,49 +52,69 @@ export class Query {
 
 	// Public API
 
-	bucket(bucket: string) {
+	getTempVariables() {
+		return this.#tempVariables;
+	}
+
+	raw() {
+		return this.#query;
+	}
+
+	findBucket(bucket: string) {
+		this.#query = this.#findBucket(bucket);
+		return this;
+	}
+
+	bucket(bucket: string): this {
 		this.#query = this.#bucket(bucket);
 		return this;
 	}
 
-	joinBuckets(buckets: string[]) {
+	joinBuckets(buckets: string[]): this {
 		this.#query = this.#joinBucketsRecursive(buckets);
 		return this;
 	}
 
-	mergeEventsByKeys(keys: string[]) {
+	filterKeyValues(key: string, values: string[]): this {
+		const queryVar = this.#variable(this.#query);
+		const filterVar = this.#variable(
+			`filter_keyvals(${queryVar}, "${key}", ${JSON.stringify(values)})`
+		);
+		this.#query = filterVar;
+		return this;
+	}
+
+	filterPeriodIntersect(query: Query): this {
+		this.#tempVariables.push(...query.getTempVariables());
+
+		this.#query = `filter_period_intersect(${this.#query},${query.raw()})`;
+		return this;
+	}
+
+	noAFK(): this {
+		const afk = new Query().findBucket(Query.BUCKETS.afk).filterKeyValues('status', ['not-afk']);
+
+		return this.filterPeriodIntersect(afk);
+	}
+
+	mergeEventsByKeys(keys: string[]): this {
 		this.#query = `merge_events_by_keys(${this.#query}, ${JSON.stringify(keys)})`;
 		return this;
 	}
 
-	sortBy(type: 'duration' | 'timestamp') {
+	sortBy(type: 'duration' | 'timestamp'): this {
 		this.#query = `sort_by_${type}(${this.#query})`;
 		return this;
 	}
 
-	return() {
-		return `RETURN=${this.#query};`;
+	async execute<T>(start: string, end?: string) {
+		const statement = this.#tempVariables.concat(this.#return()).join('');
+
+		const [result] = await this.client.query(
+			[{ start: new Date(start), end: end ? new Date(end) : new Date() }],
+			[statement]
+		);
+
+		return result as T;
 	}
 }
-
-// export function joinBuckets(buckets: string[]): string {
-// 	switch (buckets.length) {
-// 		case 0:
-// 			return '';
-// 		case 1:
-// 			return queryBucket(buckets[0]);
-// 		default:
-// 			return `union_no_overlap(${queryBucket(buckets[0])},${joinBuckets(buckets.slice(1))})`;
-// 	}
-
-// 	// return buckets.reduce((acc, curr, i, arr) => {
-// 	// 	if (i === arr.length - 1) {
-// 	// 		return `${acc} /n ${id}=join-agg-${i - 1};`;
-// 	// 	}
-
-// 	// 	const first = i === 0 ? queryBucket(curr) : `join-agg-${i - 1}`;
-
-// 	// 	return `${acc}
-// 	// 	join-agg-${i}=union_no_overlap(${first}, ${queryBucket(arr[i + 1])});`;
-// 	// }, '');
-// }
