@@ -3,6 +3,7 @@ import ApexCharts from 'apexcharts';
 
 export const chart = ((node, options) => {
 	const chart = new ApexCharts(node, options);
+	chart.render();
 
 	return {
 		update(newOptions) {
