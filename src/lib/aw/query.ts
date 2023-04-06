@@ -1,13 +1,18 @@
 import type { AWClient } from 'aw-client';
 import { awClient } from './client';
+import type { Event } from '$lib/contracts/aw';
 
-export class Query {
+export class Query<D extends Record<string, string> = Record<string, string>> {
 	#query = '';
 	#tempVariables: string[] = [];
 
 	client: AWClient;
 
-	static BUCKETS = { afk: 'aw-watcher-afk_' } as const;
+	static BUCKETS = {
+		afk: 'aw-watcher-afk_',
+		window: 'aw-watcher-window_',
+		vscode: 'aw-watcher-vscode_'
+	} as const;
 
 	constructor(client: AWClient = awClient) {
 		this.client = client;
@@ -97,7 +102,7 @@ export class Query {
 		return this.filterPeriodIntersect(afk);
 	}
 
-	mergeEventsByKeys(keys: string[]): this {
+	mergeEventsByKeys(keys: (keyof D)[]): this {
 		this.#query = `merge_events_by_keys(${this.#query}, ${JSON.stringify(keys)})`;
 		return this;
 	}
@@ -107,7 +112,7 @@ export class Query {
 		return this;
 	}
 
-	async execute<T>(start: string, end?: string) {
+	async execute(start: string, end?: string) {
 		const statement = this.#tempVariables.concat(this.#return()).join('');
 
 		const [result] = await this.client.query(
@@ -115,6 +120,6 @@ export class Query {
 			[statement]
 		);
 
-		return result as T;
+		return result as Event<D>[];
 	}
 }

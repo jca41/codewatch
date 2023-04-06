@@ -1,9 +1,8 @@
-import type { AWClient } from 'aw-client';
+export type Event<D extends Record<string, string>> = {
+	data: D;
+	duration: number;
+	timestamp: string;
+};
 
-type MethodNames<T extends keyof AWClient = keyof AWClient> = T extends any
-	? AWClient[T] extends (...args: any[]) => Promise<any>
-		? T
-		: never
-	: never;
-
-export type AwMethodReturnType<T extends MethodNames> = Awaited<ReturnType<AWClient[T]>>;
+export type WindowData = { app: string; title: string };
+export type CodingData = { language: string; project: string };

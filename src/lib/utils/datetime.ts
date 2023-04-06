@@ -1,10 +1,3 @@
-export function createBarSeries(data: unknown[]) {
-	return data.map((d) => ({
-		x: d.data!.app,
-		y: d.duration
-	}));
-}
-
 export function formatDuration(d: number, { skipSeconds = false } = {}) {
 	const h = Math.floor(d / 3600);
 	const hDisplay = h > 0 ? `${h}h` : '';
@@ -16,4 +9,8 @@ export function formatDuration(d: number, { skipSeconds = false } = {}) {
 	const sDisplay = s > 0 ? `${s}s` : '';
 
 	return skipSeconds ? hDisplay + mDisplay : hDisplay + mDisplay + sDisplay;
+}
+
+export function toDatetimeInputString(date: Date) {
+	return date.toJSON().slice(0, 19);
 }
