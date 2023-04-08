@@ -1,8 +1,12 @@
 <script lang="ts">
-	import { chart } from '$lib/actions/use-chart';
 	import { findBuckets } from '$lib/aw/buckets';
 	import { Query } from '$lib/aw/query';
-	import { createBarDuration, formatLanguages, formatProjects } from '$lib/charts/bar-duration';
+	import {
+		BAR_DURATION_CONFIG,
+		formatFiles,
+		formatLanguages,
+		formatProjects
+	} from '$lib/charts/bar-duration';
 	import ChartWidget from '$lib/components/chart-widget.svelte';
 	import type { CodingData } from '$lib/contracts/aw';
 	import { endDateStore, startDateStore } from '$lib/stores';
@@ -31,6 +35,17 @@
 					.mergeEventsByKeys(['language'])
 					.sortBy('duration')
 					.execute($startDateStore, $endDateStore)
+		},
+		{
+			queryKey: ['code-files'],
+			queryFn: () =>
+				new CodingQuery()
+					.joinBuckets(vscodeBuckets)
+					.noAFK()
+					.mergeEventsByKeys(['file'])
+					.sortBy('duration')
+					.limit(15)
+					.execute($startDateStore, $endDateStore)
 		}
 	]);
 </script>
@@ -53,24 +68,25 @@
 	/>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-10">
+<div class="grid grid-cols-1 token lg:grid-cols-2 gap-4 mt-10">
 	<ChartWidget
 		name={'Projects'}
-		options={createBarDuration({
-			name: 'Projects',
-			data: $queries[0].data,
-			formatter: formatProjects
-		})}
+		options={BAR_DURATION_CONFIG}
+		data={formatProjects($queries[0].data)}
 		loading={$queries[0].isLoading}
 	/>
 
 	<ChartWidget
 		name={'Languages'}
-		options={createBarDuration({
-			name: 'Languages',
-			data: $queries[1].data,
-			formatter: formatLanguages
-		})}
+		options={BAR_DURATION_CONFIG}
+		data={formatLanguages($queries[1].data)}
 		loading={$queries[1].isLoading}
+	/>
+
+	<ChartWidget
+		name={'Top files'}
+		options={BAR_DURATION_CONFIG}
+		data={formatFiles($queries[2].data)}
+		loading={$queries[2].isLoading}
 	/>
 </div>

@@ -112,6 +112,11 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
+	limit(count: number) {
+		this.#query = `limit_events(${this.#query},${count})`;
+		return this;
+	}
+
 	async execute(start: string, end?: string) {
 		const statement = this.#tempVariables.concat(this.#return()).join('');
 

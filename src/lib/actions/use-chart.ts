@@ -13,4 +13,4 @@ export const chart = ((node, options) => {
 			chart.destroy();
 		}
 	};
-}) satisfies Action<HTMLElement, unknown>;
+}) satisfies Action<HTMLElement, Record<string, unknown>, { seriesClick?: () => void }>;

@@ -8,7 +8,10 @@ export function formatDuration(d: number, { skipSeconds = false } = {}) {
 	const s = Math.floor((d % 3600) % 60);
 	const sDisplay = s > 0 ? `${s}s` : '';
 
-	return skipSeconds ? hDisplay + mDisplay : hDisplay + mDisplay + sDisplay;
+	const fallback = skipSeconds ? '<1m' : '';
+	const formatted = skipSeconds ? hDisplay + mDisplay : hDisplay + mDisplay + sDisplay;
+
+	return formatted || fallback;
 }
 
 export function toDatetimeInputString(date: Date) {

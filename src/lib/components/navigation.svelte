@@ -3,5 +3,5 @@
 </script>
 
 <AppBar>
-	<span class="text-3xl font-bold">CodeWatch</span>
+	<span class="text-3xl font-bold">{'<CodeWatch />'}</span>
 </AppBar>
