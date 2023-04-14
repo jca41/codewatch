@@ -3,6 +3,7 @@ import { awClient } from './client';
 import type { Event } from '$lib/contracts/aw';
 
 export class Query<D extends Record<string, string> = Record<string, string>> {
+	#debug = false;
 	#query = '';
 	#tempVariables: string[] = [];
 
@@ -14,8 +15,9 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		vscode: 'aw-watcher-vscode_'
 	} as const;
 
-	constructor(client: AWClient = awClient) {
+	constructor(client: AWClient = awClient, { debug = false } = {}) {
 		this.client = client;
+		this.#debug = debug;
 	}
 
 	#variable(statement: string) {
@@ -103,7 +105,9 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 	}
 
 	mergeEventsByKeys(keys: (keyof D)[]): this {
-		this.#query = `merge_events_by_keys(${this.#query}, ${JSON.stringify(keys)})`;
+		const queryVar = this.#variable(this.#query);
+
+		this.#query = `merge_events_by_keys(${queryVar}, ${JSON.stringify(keys)})`;
 		return this;
 	}
 
@@ -119,6 +123,10 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 
 	async execute(start: string, end?: string) {
 		const statement = this.#tempVariables.concat(this.#return()).join('');
+
+		if (this.#debug) {
+			console.log('Query>>>> ', statement);
+		}
 
 		const [result] = await this.client.query(
 			[{ start: new Date(start), end: end ? new Date(end) : new Date() }],

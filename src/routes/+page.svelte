@@ -42,7 +42,7 @@
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
 					.noAFK()
-					.mergeEventsByKeys(['file'])
+					.mergeEventsByKeys(['file', 'project'])
 					.sortBy('duration')
 					.limit(15)
 					.execute($startDateStore, $endDateStore)
@@ -51,21 +51,29 @@
 </script>
 
 <h1 class="mb-14">Coding</h1>
-<div class="flex gap-2">
-	<input
-		class="input"
-		type="datetime-local"
-		max={$endDateStore}
-		title="Start date"
-		bind:value={$startDateStore}
-	/>
-	<input
-		class="input"
-		type="datetime-local"
-		min={$startDateStore}
-		title="End date"
-		bind:value={$endDateStore}
-	/>
+<div class="space-y-2">
+	<div class="flex gap-2">
+		<input
+			class="input"
+			type="datetime-local"
+			max={$endDateStore}
+			title="Start date"
+			bind:value={$startDateStore}
+		/>
+		<input
+			class="input"
+			type="datetime-local"
+			min={$startDateStore}
+			title="End date"
+			bind:value={$endDateStore}
+		/>
+	</div>
+	<div />
+	<!-- <select class=" select">
+		{#each $queries[0].data ?? [] as event (event['data']['project'])}
+			<option>{lastPathSegment(event.data.project)}</option>
+		{/each}
+	</select> -->
 </div>
 
 <div class="grid grid-cols-1 token lg:grid-cols-2 gap-4 mt-10">
