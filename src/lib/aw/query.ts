@@ -82,10 +82,23 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
-	filterKeyValues(key: string, values: string[]): this {
+	filterKeyValues(key: keyof D, values: string[]): this {
 		const queryVar = this.#variable(this.#query);
 		const filterVar = this.#variable(
-			`filter_keyvals(${queryVar}, "${key}", ${JSON.stringify(values)})`
+			`filter_keyvals(${queryVar}, "${key as string}", ${JSON.stringify(values)})`
+		);
+		this.#query = filterVar;
+		return this;
+	}
+
+	filterEmptyValues(key: keyof D) {
+		return this.excludeKeyValues(key, ['']);
+	}
+
+	excludeKeyValues(key: keyof D, values: string[]): this {
+		const queryVar = this.#variable(this.#query);
+		const filterVar = this.#variable(
+			`exclude_keyvals(${queryVar}, "${key as string}", ${JSON.stringify(values)})`
 		);
 		this.#query = filterVar;
 		return this;

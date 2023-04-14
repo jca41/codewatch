@@ -1,4 +1,4 @@
-import type { CodingData, Event } from '$lib/contracts/aw';
+import type { CodingData, Event, WindowData } from '$lib/contracts/aw';
 import { formatDuration } from '$lib/utils/datetime';
 import { lastPathSegment } from '$lib/utils/string';
 import { BASE_CONFIG } from './base';
@@ -7,7 +7,7 @@ import merge from 'deepmerge';
 export const BAR_DURATION_CONFIG = merge(BASE_CONFIG, {
 	chart: {
 		type: 'bar',
-		height: 550
+		height: 600
 	},
 	// fill: {
 	// 	type: 'gradient'
@@ -67,3 +67,17 @@ export const formatLanguages = ((data = []) => {
 		y: d.duration
 	}));
 }) satisfies BarDurationFormatter<CodingData>;
+
+export const formatApps = ((data = []) => {
+	return data.map((d) => ({
+		x: d.data.app,
+		y: d.duration
+	}));
+}) satisfies BarDurationFormatter<WindowData>;
+
+export const formatAppTitles = ((data = []) => {
+	return data.map((d) => ({
+		x: `${d.data.title} (${d.data.app})`,
+		y: d.duration
+	}));
+}) satisfies BarDurationFormatter<WindowData>;
