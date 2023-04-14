@@ -81,3 +81,5 @@ export const formatAppTitles = ((data = []) => {
 		y: d.duration
 	}));
 }) satisfies BarDurationFormatter<WindowData>;
+
+export const LIMIT = 15;

@@ -3,6 +3,7 @@
 	import { Query } from '$lib/aw/query';
 	import {
 		BAR_DURATION_CONFIG,
+		LIMIT,
 		formatAppTitles,
 		formatApps,
 		formatFiles,
@@ -47,7 +48,7 @@
 					.noAFK()
 					.mergeEventsByKeys(['file', 'project'])
 					.sortBy('duration')
-					.limit(20)
+					.limit(LIMIT)
 					.execute($startDateStore, $endDateStore)
 		},
 		{
@@ -58,7 +59,7 @@
 					.noAFK()
 					.mergeEventsByKeys(['app'])
 					.sortBy('duration')
-					.limit(20)
+					.limit(LIMIT)
 					.execute($startDateStore, $endDateStore)
 		},
 		{
@@ -70,7 +71,7 @@
 					.filterEmptyValues('title')
 					.mergeEventsByKeys(['title', 'app'])
 					.sortBy('duration')
-					.limit(20)
+					.limit(LIMIT)
 					.execute($startDateStore, $endDateStore)
 		}
 	]);
