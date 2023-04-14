@@ -124,6 +124,10 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
+	chunkEventsByKeys(key: keyof D) {
+		this.#query = `chunk_events_by_key(${this.#query}, "${key as string}")`;
+	}
+
 	sortBy(type: 'duration' | 'timestamp'): this {
 		this.#query = `sort_by_${type}(${this.#query})`;
 		return this;

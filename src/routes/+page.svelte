@@ -4,20 +4,17 @@
 	import {
 		BAR_DURATION_CONFIG,
 		LIMIT,
-		formatAppTitles,
-		formatApps,
 		formatFiles,
 		formatLanguages,
 		formatProjects
 	} from '$lib/charts/bar-duration';
 	import ChartWidget from '$lib/components/chart-widget.svelte';
-	import type { CodingData, WindowData } from '$lib/contracts/aw';
+	import type { CodingData } from '$lib/contracts/aw';
 	import { endDateStore, startDateStore } from '$lib/stores';
 	import { createQueries } from '@tanstack/svelte-query';
 
 	const vscodeBuckets = findBuckets(Query.BUCKETS.vscode);
 	const CodingQuery = Query<CodingData>;
-	const WindowQuery = Query<WindowData>;
 
 	$: queries = createQueries([
 		{
@@ -47,29 +44,6 @@
 					.joinBuckets(vscodeBuckets)
 					.noAFK()
 					.mergeEventsByKeys(['file', 'project'])
-					.sortBy('duration')
-					.limit(LIMIT)
-					.execute($startDateStore, $endDateStore)
-		},
-		{
-			queryKey: ['apps'],
-			queryFn: () =>
-				new WindowQuery()
-					.findBucket(WindowQuery.BUCKETS.window)
-					.noAFK()
-					.mergeEventsByKeys(['app'])
-					.sortBy('duration')
-					.limit(LIMIT)
-					.execute($startDateStore, $endDateStore)
-		},
-		{
-			queryKey: ['app-titles'],
-			queryFn: () =>
-				new WindowQuery()
-					.findBucket(WindowQuery.BUCKETS.window)
-					.noAFK()
-					.filterEmptyValues('title')
-					.mergeEventsByKeys(['title', 'app'])
 					.sortBy('duration')
 					.limit(LIMIT)
 					.execute($startDateStore, $endDateStore)
@@ -123,19 +97,5 @@
 		options={BAR_DURATION_CONFIG}
 		data={formatFiles($queries[2].data)}
 		loading={$queries[2].isLoading}
-	/>
-
-	<ChartWidget
-		name={'Apps'}
-		options={BAR_DURATION_CONFIG}
-		data={formatApps($queries[3].data)}
-		loading={$queries[3].isLoading}
-	/>
-
-	<ChartWidget
-		name={'App titles'}
-		options={BAR_DURATION_CONFIG}
-		data={formatAppTitles($queries[4].data)}
-		loading={$queries[4].isLoading}
 	/>
 </div>
