@@ -8,9 +8,13 @@
 		formatLanguages,
 		formatProjects
 	} from '$lib/charts/bar-duration';
+
 	import ChartWidget from '$lib/components/chart-widget.svelte';
+	import DatePicker from '$lib/components/date-picker.svelte';
+	import Heading from '$lib/components/heading.svelte';
 	import type { CodingData } from '$lib/contracts/aw';
-	import { endDateStore, startDateStore } from '$lib/stores';
+	import { datesStore } from '$lib/stores';
+	import { sumDurations, formatDuration } from '$lib/utils/datetime';
 	import { createQueries } from '@tanstack/svelte-query';
 
 	const vscodeBuckets = findBuckets(Query.BUCKETS.vscode);
@@ -19,26 +23,29 @@
 	$: queries = createQueries([
 		{
 			queryKey: ['code-projects'],
+			select: formatProjects,
 			queryFn: () =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
 					.noAFK()
 					.mergeEventsByKeys(['project'])
 					.sortBy('duration')
-					.execute($startDateStore, $endDateStore)
+					.execute($datesStore.start, $datesStore.end)
 		},
 		{
 			queryKey: ['code-languages'],
+			select: formatLanguages,
 			queryFn: () =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
 					.noAFK()
 					.mergeEventsByKeys(['language'])
 					.sortBy('duration')
-					.execute($startDateStore, $endDateStore)
+					.execute($datesStore.start, $datesStore.end)
 		},
 		{
 			queryKey: ['code-files'],
+			select: formatFiles,
 			queryFn: () =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
@@ -46,56 +53,35 @@
 					.mergeEventsByKeys(['file', 'project'])
 					.sortBy('duration')
 					.limit(LIMIT)
-					.execute($startDateStore, $endDateStore)
+					.execute($datesStore.start, $datesStore.end)
 		}
 	]);
 </script>
 
-<h1 class="mb-14">Coding</h1>
+<Heading title="Coding" duration={sumDurations($queries[0].data, 'y')} />
 <div class="space-y-2">
-	<div class="flex gap-2">
-		<input
-			class="input"
-			type="datetime-local"
-			max={$endDateStore}
-			title="Start date"
-			bind:value={$startDateStore}
-		/>
-		<input
-			class="input"
-			type="datetime-local"
-			min={$startDateStore}
-			title="End date"
-			bind:value={$endDateStore}
-		/>
-	</div>
-	<div />
-	<!-- <select class=" select">
-		{#each $queries[0].data ?? [] as event (event['data']['project'])}
-			<option>{lastPathSegment(event.data.project)}</option>
-		{/each}
-	</select> -->
+	<DatePicker />
 </div>
 
 <div class="grid grid-cols-1 token lg:grid-cols-2 gap-4 mt-10">
 	<ChartWidget
 		name={'Projects'}
 		options={BAR_DURATION_CONFIG}
-		data={formatProjects($queries[0].data)}
-		loading={$queries[0].isLoading}
+		data={$queries[0].data ?? []}
+		loading={$queries[0].status === 'loading'}
 	/>
 
 	<ChartWidget
 		name={'Languages'}
 		options={BAR_DURATION_CONFIG}
-		data={formatLanguages($queries[1].data)}
+		data={$queries[1].data ?? []}
 		loading={$queries[1].isLoading}
 	/>
 
 	<ChartWidget
 		name={'Files'}
 		options={BAR_DURATION_CONFIG}
-		data={formatFiles($queries[2].data)}
+		data={$queries[2].data ?? []}
 		loading={$queries[2].isLoading}
 	/>
 </div>

@@ -1,4 +1,4 @@
-export type Event<D extends Record<string, string>> = {
+export type Event<D extends Record<string, string> = Record<string, string>> = {
 	data: D;
 	duration: number;
 	timestamp: string;

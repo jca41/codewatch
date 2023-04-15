@@ -3,7 +3,7 @@
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
 	export let name: string;
 	export let options: Record<string, unknown>;
-	export let data: unknown[] = [];
+	export let data: unknown[] | undefined;
 	export let loading: boolean;
 	export let limit = 5;
 
@@ -11,8 +11,14 @@
 
 	$: chartOptions = {
 		...options,
-		series: [{ name, data: applyLimit && data.length > limit ? data.slice(0, limit) : data }]
+		series: [
+			{ name, data: applyLimit && data && data?.length > limit ? data.slice(0, limit) : data || [] }
+		]
 	};
+
+	$: {
+		console.log(loading);
+	}
 </script>
 
 <div class="relative">
@@ -23,7 +29,7 @@
 	{/if}
 	<div class="relative">
 		<h2 class="text-center">{name}</h2>
-		{#if data.length > limit}
+		{#if data && data?.length > limit}
 			<div class="absolute flex flex-row justify-center right-0 inset-y-0">
 				<button
 					class="btn btn-sm variant-ringed-primary my-auto"

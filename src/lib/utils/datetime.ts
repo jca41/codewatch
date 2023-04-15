@@ -17,3 +17,12 @@ export function formatDuration(d: number, { skipSeconds = false } = {}) {
 export function toDatetimeInputString(date: Date) {
 	return date.toJSON().slice(0, 19);
 }
+
+export function sumDurations<D extends Record<string, string | number>>(
+	data: D[] = [],
+	key: keyof D
+) {
+	return data.reduce((acc, curr) => {
+		return acc + (curr[key] as number);
+	}, 0);
+}

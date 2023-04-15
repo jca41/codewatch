@@ -91,7 +91,7 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
-	filterEmptyValues(key: keyof D) {
+	filterEmptyValues(key: keyof D): this {
 		return this.excludeKeyValues(key, ['']);
 	}
 
@@ -124,12 +124,17 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
-	chunkEventsByKeys(key: keyof D) {
+	chunkEventsByKey(key: keyof D): this {
 		this.#query = `chunk_events_by_key(${this.#query}, "${key as string}")`;
+		return this;
 	}
 
 	sortBy(type: 'duration' | 'timestamp'): this {
 		this.#query = `sort_by_${type}(${this.#query})`;
+		return this;
+	}
+	sumDurations(): this {
+		this.#query = `sum_durations(${this.#query})`;
 		return this;
 	}
 
