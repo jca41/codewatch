@@ -17,7 +17,7 @@
 <div class="relative">
 	{#if loading}
 		<div class="absolute inset-0 z-10 flex items-center justify-center">
-			<ProgressRadial stroke={80} />
+			<ProgressRadial meter="stroke-secondary-500" track="stroke-secondary-500/30" stroke={80} />
 		</div>
 	{/if}
 	<div class="relative">
