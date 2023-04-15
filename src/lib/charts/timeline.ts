@@ -13,6 +13,7 @@ export const TIMELINE_CONFIG = merge(BASE_CONFIG, {
 		type: 'datetime'
 	},
 	yaxis: {
+		type: 'numeric',
 		labels: {
 			formatter(v: number) {
 				return formatDuration(v);

@@ -9,9 +9,6 @@ export const BAR_DURATION_CONFIG = merge(BASE_CONFIG, {
 		type: 'bar',
 		height: 600
 	},
-	// fill: {
-	// 	type: 'gradient'
-	// },
 	plotOptions: {
 		bar: {
 			horizontal: true
@@ -30,12 +27,16 @@ export const BAR_DURATION_CONFIG = merge(BASE_CONFIG, {
 		}
 	},
 	xaxis: {
+		type: 'numeric',
 		labels: {
 			show: false
 		},
 		axisTicks: {
 			show: false
 		}
+	},
+	yaxis: {
+		type: 'category'
 	}
 });
 

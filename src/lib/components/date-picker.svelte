@@ -52,7 +52,7 @@
 			max={$endDateStore}
 			title="Start date"
 			bind:value={$datesStore.start}
-			on:input={onDateChange}
+			on:change={onDateChange}
 		/>
 		<input
 			class="input"
