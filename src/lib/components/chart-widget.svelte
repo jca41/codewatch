@@ -15,10 +15,6 @@
 			{ name, data: applyLimit && data && data?.length > limit ? data.slice(0, limit) : data || [] }
 		]
 	};
-
-	$: {
-		console.log(loading);
-	}
 </script>
 
 <div class="relative">
