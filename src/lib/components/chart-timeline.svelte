@@ -2,8 +2,9 @@
 	import { chart } from '$lib/actions/use-chart';
 	import { ProgressRadial } from '@skeletonlabs/skeleton';
 
+	export let name: string;
 	export let options: Record<string, unknown>;
-	export let series: { name: string; data: unknown[] }[] = [];
+	export let data: unknown[] | undefined;
 	export let loading: boolean;
 </script>
 
@@ -13,5 +14,5 @@
 			<ProgressRadial stroke={80} />
 		</div>
 	{/if}
-	<div use:chart={{ ...options, series }} />
+	<div use:chart={{ ...options, series: [{ name, data }] }} />
 </div>

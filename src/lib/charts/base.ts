@@ -1,7 +1,5 @@
 export const THEME_COLORS = {
-	300: '#f5e9ad',
-	500: '#e6c833',
-	600: '#cfb42e'
+	500: '#bd5656'
 };
 
 export const BASE_CONFIG = {

@@ -7,7 +7,7 @@ export const chart = ((node, options) => {
 
 	return {
 		update(newOptions) {
-			chart.updateOptions(newOptions);
+			chart.updateSeries(newOptions.series as ApexAxisChartSeries | ApexNonAxisChartSeries, true);
 		},
 		destroy() {
 			chart.destroy();

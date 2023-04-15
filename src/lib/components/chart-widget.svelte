@@ -9,12 +9,9 @@
 
 	let applyLimit = true;
 
-	$: chartOptions = {
-		...options,
-		series: [
-			{ name, data: applyLimit && data && data?.length > limit ? data.slice(0, limit) : data || [] }
-		]
-	};
+	$: chartSeries = [
+		{ name, data: applyLimit && data && data?.length > limit ? data.slice(0, limit) : data || [] }
+	];
 </script>
 
 <div class="relative">
@@ -28,7 +25,7 @@
 		{#if data && data?.length > limit}
 			<div class="absolute flex flex-row justify-center right-0 inset-y-0">
 				<button
-					class="btn btn-sm variant-ringed-primary my-auto"
+					class="btn btn-sm variant-ghost-primary my-auto"
 					on:click={() => {
 						applyLimit = !applyLimit;
 					}}>{applyLimit ? 'Show all' : 'Show less'}</button
@@ -36,5 +33,5 @@
 			</div>
 		{/if}
 	</div>
-	<div use:chart={chartOptions} />
+	<div use:chart={{ ...options, series: chartSeries }} />
 </div>

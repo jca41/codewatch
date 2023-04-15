@@ -7,7 +7,7 @@ export const bucketsStore = writable<Awaited<ReturnType<AWClient['getBuckets']>>
 export const startDateStore = writable<string>(toDatetimeInputString(subDays(new Date(), 5)));
 export const endDateStore = writable<string>(toDatetimeInputString(new Date()));
 
-export type RelativeDatesId = '1d' | '1w' | '1m' | '6m';
+export type RelativeDatesId = '1d' | '3d' | '1w' | '2w' | '1m' | '6m' | '1y';
 
 export const datesStore = writable<{
 	start: string;

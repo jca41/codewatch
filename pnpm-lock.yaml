@@ -7,11 +7,11 @@ specifiers:
   '@sveltejs/kit': ^1.15.1
   '@tailwindcss/forms': ^0.5.3
   '@tailwindcss/typography': ^0.5.9
-  '@tanstack/svelte-query': ^4.27.0
+  '@tanstack/svelte-query': ^4.29.1
   '@tauri-apps/cli': ^1.2.3
   '@typescript-eslint/eslint-plugin': ^5.57.1
   '@typescript-eslint/parser': ^5.57.1
-  apexcharts: ^3.37.3
+  apexcharts: ^3.38.0
   autoprefixer: ^10.4.14
   aw-client: ^0.3.3
   date-fns: ^2.29.3
@@ -33,8 +33,8 @@ specifiers:
   vitest: ^0.25.8
 
 dependencies:
-  '@tanstack/svelte-query': 4.27.0_svelte@3.58.0
-  apexcharts: 3.37.3
+  '@tanstack/svelte-query': 4.29.1_svelte@3.58.0
+  apexcharts: 3.38.0
   aw-client: 0.3.3
   date-fns: 2.29.3
   deepmerge: 4.3.1
@@ -455,16 +455,16 @@ packages:
       tailwindcss: 3.3.1_postcss@8.4.21
     dev: true
 
-  /@tanstack/query-core/4.27.0:
-    resolution: {integrity: sha512-sm+QncWaPmM73IPwFlmWSKPqjdTXZeFf/7aEmWh00z7yl2FjqophPt0dE1EHW9P1giMC5rMviv7OUbSDmWzXXA==}
+  /@tanstack/query-core/4.29.1:
+    resolution: {integrity: sha512-vkPewLEG8ua0efo3SsVT0BcBtkq5RZX8oPhDAyKL+k/rdOYSQTEocfGEXSaBwIwsXeOGBUpfKqI+UmHvNqdWXg==}
     dev: false
 
-  /@tanstack/svelte-query/4.27.0_svelte@3.58.0:
-    resolution: {integrity: sha512-FmrviPCoWbgBOLgG4uOG4EHi80DDzvD4XK+0nQBTLb4c2cKyN7c98MLgG58yHbdFEPQyhhcJlqagXP18vWWS9w==}
+  /@tanstack/svelte-query/4.29.1_svelte@3.58.0:
+    resolution: {integrity: sha512-V+Ueq8fWHx6W9kBlVfrdFJbSUodJknOdgGKV90lNYM1WFeoOzqihXDOgeJHUaT+JKs96sRBQJAVN7NIbBR0iMw==}
     peerDependencies:
       svelte: ^3.54.0
     dependencies:
-      '@tanstack/query-core': 4.27.0
+      '@tanstack/query-core': 4.29.1
       svelte: 3.58.0
     dev: false
 
@@ -784,8 +784,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /apexcharts/3.37.3:
-    resolution: {integrity: sha512-+rnUui9uC3Mvh9qbQxUfqBnuJ0nAJOYTp+yKnA5bVmmndKXj5X/Q+OVIxkq0Jr5ysiK200Dsg1Tuz/OUG+DEpw==}
+  /apexcharts/3.38.0:
+    resolution: {integrity: sha512-VLVdrPf5LD+a9THkPkxpdjWjPcjITsN/9C2Z1G4MYzhR31hR+Pe+DextbI0ZY220UAKnhBFLgKOtPOum1ArBWw==}
     dependencies:
       svg.draggable.js: 2.2.2
       svg.easing.js: 2.0.0
