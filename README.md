@@ -1,10 +1,11 @@
-<img src="./static/logo.png">
-</br>
+<img src="./static/logo.png" width="500">
 </br>
 
 **CodeWatch** is an open source desktop client for [ActivityWatch](https://activitywatch.net).
 
-<video src="./demos/demo1.mov"></video>
+</br>
+
+https://user-images.githubusercontent.com/20280618/232332635-06021214-3d0e-49d7-801d-0eb7b7246c4c.mp4
 
 # Install & setup
 
