@@ -11,7 +11,9 @@
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-		"check:updates": "pnpm update --interactive --latest"
+		"check:updates": "pnpm update --interactive --latest",
+		"tauri:dev": "tauri dev",
+		"tauri:build": "tauri build --target universal-apple-darwin"
 	},
 	"devDependencies": {
 		"@skeletonlabs/skeleton": "^1.1.0",

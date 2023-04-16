@@ -4,7 +4,8 @@
 
 <ul class="space-y-3 list-disc ml-8 typography">
 	<li>
-		Install <a href={AW_URL}>ActivityWatch</a>. Check out their homepage for instructions.
+		Install <a href={AW_URL}>ActivityWatch</a>. Check out their homepage for instructions. Make sure
+		the server is running.
 	</li>
 	<li>
 		Install the extension for Visual Studio Code, <a
