@@ -1,5 +1,6 @@
 import { awClient } from '$lib/aw/client';
 import { bucketsStore } from '$lib/stores';
+import { error } from '@sveltejs/kit';
 
 export const prerender = true;
 export const ssr = false;
@@ -12,6 +13,6 @@ export async function load() {
 			error: false
 		};
 	} catch (e) {
-		return { error: true };
+		throw error(500);
 	}
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import InstallSteps from './install-steps.svelte';
+	import InstallSteps from '$lib/components/install-steps.svelte';
 </script>
 
 <aside class="alert variant-ghost-error">
