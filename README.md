@@ -1,38 +1,47 @@
-# create-svelte
+<img src="./static/logo.png">
+</br>
+</br>
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+**CodeWatch** is an open source desktop client for [ActivityWatch](https://activitywatch.net).
 
-## Creating a project
+<video src="./codewatch-demo.mov"></video>
 
-If you're seeing this, you've probably already done this step. Congrats!
+# Install & setup
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+You can download the latest installer from the [releases section](https://github.com/jca41/codewatch/releases).
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Pre-requisites
 
-## Developing
+- Install <a href={AW_URL}>ActivityWatch</a>. Check out their homepage for instructions. Make sure the server is running.
+- Install the extension for Visual Studio Code, <a
+  		href="https://marketplace.visualstudio.com/items?itemName=activitywatch.aw-watcher-vscode">here</a>.
+- Add an entry to the CORS configuration so the application can communicate with `aw-server`.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+  Edit `~/Library/Application\ Support/activitywatchaw-server.toml` (<a href="https://docs.activitywatch.net/en/latest/directories.html#config-directory">Config docs</a>) and add `cors_origins = "tauri://localhost"` to the `[server]` section.
 
-```bash
-npm run dev
+# Platforms
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+- MacOS (universal installer)
 
-## Building
+We plan on creating installers for Windows and Linux.
 
-To create a production version of your app:
+# Code editors
 
-```bash
-npm run build
-```
+- Visual Studio Code
 
-You can preview the production build with `npm run preview`.
+We plan on extending this list as long as there's an activity watch extension for it already.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+# Roadmap
+
+Some of the features being considered:
+
+- Filters by project and/or language
+- Support more code editors
+- Windows/Linux support
+- Display CPU/RAM etc info with `Alwinator/aw-watcher-utilization`
+- A more performant charts library
+- Better error handling
+
+# Found a bug, have a suggestion?
+
+Feel free to open an issue!
