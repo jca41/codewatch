@@ -1,11 +1,18 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-
+@font-face {
+	/* Reference name */
+	font-family: 'MPLUSRounded1c';
+	/* For multiple files use commas, ex: url(), url(), ... */
+	src: url('/fonts/MPLUSRounded1c-Regular.ttf');
+}
 :root {
-    --theme-font-family-base: 'Quicksand', sans-serif;
-    --theme-font-family-heading: 'Quicksand', sans-serif;
-} */
+  --theme-font-family-base: 'MPLUSRounded1c', sans-serif;
+    --theme-font-family-heading: 'MPLUSRounded1c', sans-serif;
+}
 
-body { @apply bg-surface-50-900-token; }
+body { 
+    background: url('/mesh.webp');
+    background-size: cover;
+ }
 html, body { @apply h-full overflow-hidden; }
 
 
