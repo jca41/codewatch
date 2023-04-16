@@ -56,10 +56,10 @@
 		"windows": [
 			{
 				"fullscreen": false,
-				"height": 800,
+				"height": 1000,
 				"resizable": true,
 				"title": "CodeWatch",
-				"width": 1000
+				"width": 1200
 			}
 		]
 	}
