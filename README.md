@@ -1,7 +1,7 @@
 <img src="./static/logo.png" width="500">
 </br>
 
-**CodeWatch** is an open source desktop client for [ActivityWatch](https://activitywatch.net).
+**CodeWatch** is an open source desktop client for [ActivityWatch](https://activitywatch.net). It focuses on software development and productivity related tasks.
 
 </br>
 

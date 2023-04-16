@@ -9,7 +9,8 @@
 		<p>
 			<a href="https://github.com/jca41/codewatch">CodeWatch</a> is an open source desktop client
 			for
-			<a href={AW_URL}>ActivityWatch</a>.
+			<a href={AW_URL}>ActivityWatch</a>. It focuses on software development and productivity
+			related tasks.
 		</p>
 	</section>
 
