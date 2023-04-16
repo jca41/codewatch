@@ -4,7 +4,7 @@
 
 **CodeWatch** is an open source desktop client for [ActivityWatch](https://activitywatch.net).
 
-<video src="https://www.dropbox.com/s/ekittpef5n75xxx/codewatch-demo-2.mov?raw=1&dl=0"></video>
+<video src="./demos/demo1.mov"></video>
 
 # Install & setup
 
