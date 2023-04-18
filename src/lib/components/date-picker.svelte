@@ -60,7 +60,7 @@
 			min={$startDateStore}
 			title="End date"
 			bind:value={$datesStore.end}
-			on:input={onDateChange}
+			on:change={onDateChange}
 		/>
 	</div>
 </div>
