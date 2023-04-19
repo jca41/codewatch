@@ -13,7 +13,7 @@ You can download the latest installer from the [releases section](https://github
 
 ## Pre-requisites
 
-- Install <a href={AW_URL}>ActivityWatch</a>. Check out their homepage for instructions. Make sure the server is running.
+- Install [ActivityWatch](https://activitywatch.net). Check out their homepage for instructions. Make sure the server is running.
 - Install the extension for Visual Studio Code, <a
   		href="https://marketplace.visualstudio.com/items?itemName=activitywatch.aw-watcher-vscode">here</a>.
 - Add an entry to the CORS configuration so the application can communicate with `aw-server`.
