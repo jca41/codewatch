@@ -1,6 +1,7 @@
 import type { AWClient } from 'aw-client';
 import { awClient } from './client';
 import type { Event } from '$lib/contracts/aw';
+import { formatISO } from 'date-fns';
 
 export class Query<D extends Record<string, string> = Record<string, string>> {
 	#debug = false;
@@ -143,17 +144,15 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
-	async execute(start: string, end?: string) {
+	async execute(start: string, end: string) {
 		const statement = this.#tempVariables.concat(this.#return()).join('');
 
 		if (this.#debug) {
 			console.log('Query>>>> ', statement);
 		}
 
-		const [result] = await this.client.query(
-			[{ start: new Date(start), end: end ? new Date(end) : new Date() }],
-			[statement]
-		);
+		const timePeriod = `${formatISO(new Date(start))}/${formatISO(new Date(end))}`;
+		const [result] = await this.client.query([timePeriod], [statement]);
 
 		return result as Event<D>[];
 	}

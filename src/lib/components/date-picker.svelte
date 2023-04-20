@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { endDateStore, startDateStore, datesStore, type RelativeDatesId } from '$lib/stores';
+	import { datesStore, type RelativeDatesId } from '$lib/stores';
 	import { toDatetimeInputString } from '$lib/utils/datetime';
 	import { sub, type Duration } from 'date-fns';
 
@@ -49,7 +49,7 @@
 		<input
 			class="input"
 			type="datetime-local"
-			max={$endDateStore}
+			max={$datesStore.end}
 			title="Start date"
 			bind:value={$datesStore.start}
 			on:change={onDateChange}
@@ -57,7 +57,7 @@
 		<input
 			class="input"
 			type="datetime-local"
-			min={$startDateStore}
+			min={$datesStore.start}
 			title="End date"
 			bind:value={$datesStore.end}
 			on:change={onDateChange}

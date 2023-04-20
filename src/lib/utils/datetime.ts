@@ -1,3 +1,5 @@
+import { formatISO } from 'date-fns';
+
 export function formatDuration(d: number, { skipSeconds = false } = {}) {
 	const h = Math.floor(d / 3600);
 	const hDisplay = h > 0 ? `${h}h` : '';
@@ -15,7 +17,7 @@ export function formatDuration(d: number, { skipSeconds = false } = {}) {
 }
 
 export function toDatetimeInputString(date: Date) {
-	return date.toJSON().slice(0, 19);
+	return formatISO(date).split('+')[0];
 }
 
 export function sumDurations<D extends Record<string, string | number>>(
