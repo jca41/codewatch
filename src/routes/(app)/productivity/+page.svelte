@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { findBuckets } from '$lib/aw/buckets';
 	import { Query } from '$lib/aw/query';
 	import {
 		BAR_DURATION_CONFIG,
@@ -18,6 +19,7 @@
 	import { createQueries } from '@tanstack/svelte-query';
 
 	const WindowQuery = Query<WindowData>;
+	const afkBuckets = findBuckets(Query.BUCKETS.afk);
 
 	$: queries = createQueries([
 		{
@@ -26,7 +28,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new WindowQuery()
 					.findBucket(WindowQuery.BUCKETS.window)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.mergeEventsByKeys(['app'])
 					.sortBy('duration')
 					.limit(LIMIT)
@@ -38,7 +40,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new WindowQuery()
 					.findBucket(WindowQuery.BUCKETS.window)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.filterEmptyValues('title')
 					.mergeEventsByKeys(['title', 'app'])
 					.sortBy('duration')
@@ -51,7 +53,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new WindowQuery()
 					.findBucket(WindowQuery.BUCKETS.window)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.sortBy('timestamp')
 					.execute(queryKey[1], queryKey[2])
 		}

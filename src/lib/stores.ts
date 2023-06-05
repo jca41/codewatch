@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 import { toDatetimeInputString } from './utils/datetime';
 import { subDays } from 'date-fns';
 
-export const bucketsStore = writable<Awaited<ReturnType<AWClient['getBuckets']>>>({});
+export const bucketsStore = writable<Awaited<ReturnType<AWClient['getBuckets']>>[string][]>([]);
 
 export type RelativeDatesId = '1d' | '3d' | '1w' | '2w' | '1m' | '6m' | '1y';
 

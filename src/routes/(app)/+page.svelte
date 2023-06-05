@@ -21,6 +21,8 @@
 	import { createQueries } from '@tanstack/svelte-query';
 
 	const vscodeBuckets = findBuckets(Query.BUCKETS.vscode);
+	const afkBuckets = findBuckets(Query.BUCKETS.afk);
+
 	const CodingQuery = Query<CodingData>;
 
 	$: queries = createQueries([
@@ -30,7 +32,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.mergeEventsByKeys(['project'])
 					.sortBy('duration')
 					.execute(queryKey[1], queryKey[2])
@@ -41,7 +43,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.mergeEventsByKeys(['language'])
 					.sortBy('duration')
 					.execute(queryKey[1], queryKey[2])
@@ -52,7 +54,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.mergeEventsByKeys(['file', 'project'])
 					.sortBy('duration')
 					.limit(LIMIT)
@@ -64,7 +66,7 @@
 			queryFn: ({ queryKey }: QueryFnParams) =>
 				new CodingQuery()
 					.joinBuckets(vscodeBuckets)
-					.noAFK()
+					.noAFK(afkBuckets)
 					.sortBy('timestamp')
 					.execute(queryKey[1], queryKey[2])
 		}

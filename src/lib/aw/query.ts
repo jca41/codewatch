@@ -52,8 +52,8 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 			case 1:
 				return this.#bucket(buckets[0]);
 			default:
-				return `union_no_overlap(${this.#bucket(buckets[0])},${this.#joinBucketsRecursive(
-					buckets.slice(1)
+				return `union_no_overlap(${this.#joinBucketsRecursive(buckets.slice(1))},${this.#bucket(
+					buckets[0]
 				)})`;
 		}
 	}
@@ -112,8 +112,8 @@ export class Query<D extends Record<string, string> = Record<string, string>> {
 		return this;
 	}
 
-	noAFK(): this {
-		const afk = new Query().findBucket(Query.BUCKETS.afk).filterKeyValues('status', ['not-afk']);
+	noAFK(afkBuckets: string[]): this {
+		const afk = new Query().joinBuckets(afkBuckets).filterKeyValues('status', ['not-afk']);
 
 		return this.filterPeriodIntersect(afk);
 	}
